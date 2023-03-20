@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#usage: [this] [name_of_x] [name_of_y] [x.fasta] [y.fasta] (axis_text_size[default=8]) (draw_width_inch[default=8]) (draw_height_inch[default=8]) (dpi[default=600])
+#version 1.00 (last update 2023.03.13)
+
+scriptdir=`dirname ${0}`
+mkdir plot${1}vs${2}
+
+makeblastdb -dbtype nucl -in $3 -out plot${1}vs${2}/${1}
+blastn -db plot${1}vs${2}/${1} -query $4 -outfmt 6 > plot${1}vs${2}/blast${2}to${1}.txt
+
+seqkit fx2tab $3 -n -l > plot${1}vs${2}/${1}_length.txt
+seqkit fx2tab $4 -n -l > plot${1}vs${2}/${2}_length.txt
+
+python3 ${scriptdir}/blast6_to_rplot.py plot${1}vs${2}/blast${2}to${1}.txt plot${1}vs${2}/${1}_length.txt plot${1}vs${2}/${2}_length.txt plot${1}vs${2}/${1}_position.txt plot${1}vs${2}/${2}_position.txt plot${1}vs${2}/plot${2}vs${1}.txt
+
+xcontigno=`cat plot${1}vs${2}/${1}_length.txt | wc -l`
+ycontigno=`cat plot${1}vs${2}/${2}_length.txt | wc -l`
+
+if [ $xcontigno -eq 1 ] && [ $ycontigno -eq 1 ]; then
+   Rscript ${scriptdir}/DrawSyntenySingle.R plot${1}vs${2}/plot${2}vs${1}.txt $1 $2 plot${1}vs${2}/${1}_length.txt plot${1}vs${2}/${2}_length.txt ${5:-8} ${6:-8} ${7:-8} ${8:-600}
+else 
+   Rscript ${scriptdir}/DrawSyntenyMulti.R plot${1}vs${2}/plot${2}vs${1}.txt $1 $2 plot${1}vs${2}/${1}_length.txt plot${1}vs${2}/${2}_length.txt plot${1}vs${2}/${1}_position.txt plot${1}vs${2}/${2}_position.txt ${5:-8} ${6:-8} ${7:-8} ${8:-600}
+fi
+
+mv Rplots.pdf plot${1}vs${2}/
