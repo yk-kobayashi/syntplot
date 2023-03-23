@@ -27,8 +27,5 @@ A png file named "<name_of_genome1>vs<name_of_genome2>.png" will be created
 `syntplot S.cerevisiae_S288C_mit S.paradoxus_CNS432_mit Scer_GCF_000146045.2_mit.fasta Spar_GCF_002079055.1_mit.fasta`
 <img src="https://github.com/yk-kobayashi/images/blob/syntplot/S.cerevisiae_S288C_mitvsS.paradoxus_CNS432_mit.png" width="600">
 
-## citation
-In progress
-
 ## Acknowledgement
 I acknowledge Dr Shunta Yorimoto for the basic idea of "geom-path"-based synteny plot
