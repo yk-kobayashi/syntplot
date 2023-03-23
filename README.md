@@ -4,7 +4,7 @@ Scripts for plotting genome synteny based on BLAST alignment
 ## usage
 `syntplot <name_of_genome1> <name_of_genome2> <sequence_of_genome1(.fasta)> <sequence_of_genome1(.fasta)>`
 - spaces and special characters cannot be included in the arguments
-- compatible with both multi-fasta and single-fasta
+- compatible with multi-fasta and single-fasta
 
 ## dependencies
 - NCBI blast+
