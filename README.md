@@ -15,7 +15,8 @@ Scripts for plotting genome synteny based on BLAST alignment
   - scales
 
 ## output
-A png file named "<name_of_genome1>vs<name_of_genome2>.png" will be created
+A png file named "<name_of_genome1>vs<name_of_genome2>.png" will be created.
+Axis labels differ by single-fasta or multi-fasta.
 
 ## examples
 - multi fasta
@@ -29,4 +30,4 @@ A png file named "<name_of_genome1>vs<name_of_genome2>.png" will be created
 <img src="https://github.com/yk-kobayashi/images/blob/syntplot/S.cerevisiae_S288C_mitvsS.paradoxus_CNS432_mit.png" width="600">
 
 ## Acknowledgement
-I acknowledge Dr Shunta Yorimoto for the basic idea of "geom-path"-based synteny plot
+I acknowledge Dr Shunta Yorimoto (NIBB) for the basic idea of "geom_path"-based synteny plot.
