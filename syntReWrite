@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#usage: [this] [name_of_x] [name_of_y] [output_name] (line_width[default=0.5]) (axis_text_size[default=8]) (draw_width_inch[default=8]) (draw_height_inch[default=8]) (dpi[default=600])
+#version 1.1 (last update 2023.06.07)
+
+if [ $# == 0 ]; then
+  echo "argument error!"
+  echo "usage: [this] [name_of_x] [name_of_y] [output_name] (line_width[default=0.5]) (axis_text_size[default=8]) (draw_width_inch[default=8]) (draw_height_inch[default=8]) (dpi[default=600])"
+  exit 1
+fi
+
+scriptdir=`dirname ${0}`
+xcontigno=`cat plot${1}vs${2}/${1}_length.txt | wc -l`
+ycontigno=`cat plot${1}vs${2}/${2}_length.txt | wc -l`
+
+if [ $xcontigno -eq 1 ] && [ $ycontigno -eq 1 ]; then
+   Rscript ${scriptdir}/ReDrawSyntenySingle.R plot${1}vs${2}/plot${2}vs${1}.txt $1 $2 plot${1}vs${2}/${1}_length.txt plot${1}vs${2}/${2}_length.txt ${5:-8} ${6:-8} ${7:-8} ${8:-600}  ${4:-0.5} ${3:-redraw}
+else 
+   Rscript ${scriptdir}/ReDrawSyntenyMulti.R plot${1}vs${2}/plot${2}vs${1}.txt $1 $2 plot${1}vs${2}/${1}_length.txt plot${1}vs${2}/${2}_length.txt plot${1}vs${2}/${1}_position.txt plot${1}vs${2}/${2}_position.txt ${5:-8} ${6:-8} ${7:-8} ${8:-600} ${4:-0.5} ${3:-redraw}
+fi
+
+rm Rplots.pdf
